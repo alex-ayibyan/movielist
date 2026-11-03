@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ma Liste de Films</title>
+  <meta name="description" content="Cherche de vrais films via TMDB, ajoute-les à ta liste et coche ceux que tu as vus.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="label">Liste de films personnelle</div>
+      <h1>Ma Liste de Films</h1>
+    </div>
+    <div class="tally">
+      <div><b id="nTodo">0</b><span class="label">À voir</span></div>
+      <div class="seen"><b id="nSeen">0</b><span class="label">Vus</span></div>
+      <button class="btn ghost" id="openSettings" type="button" aria-controls="settings">Réglages</button>
+    </div>
+  </header>
+
+  <section class="panel" id="settings" hidden aria-label="Réglages">
+    <h2>Réglages</h2>
+    <form id="keyForm" class="row">
+      <label for="apiKey" class="sr">Clé API TMDB</label>
+      <input id="apiKey" type="password" autocomplete="off" placeholder="Clé API (v3) ou jeton de lecture (v4) TMDB">
+      <button class="btn" type="submit">Enregistrer</button>
+    </form>
+    <p class="hint">Crée un compte gratuit sur <a href="https://www.themoviedb.org/signup" target="_blank" rel="noopener">themoviedb.org</a>, puis demande une clé dans <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">Paramètres → API</a>. La clé reste dans ce navigateur, elle n'est jamais envoyée ailleurs qu'à TMDB.</p>
+    <p class="status" id="keyStatus" hidden></p>
+    <div class="row wrap-row">
+      <button class="btn ghost" id="exportBtn" type="button">Exporter ma liste (JSON)</button>
+      <label class="btn ghost" for="importFile">Importer une liste</label>
+      <input id="importFile" type="file" accept="application/json,.json" class="sr">
+    </div>
+    <p class="hint">Ta liste est enregistrée dans ce navigateur. Exporte-la de temps en temps pour la sauvegarder ou la déplacer vers un autre appareil.</p>
+  </section>
+
+  <section class="panel" aria-label="Rechercher un film">
+    <form id="searchForm" class="row">
+      <label for="q" class="sr">Titre du film</label>
+      <input id="q" type="search" placeholder="Cherche un film, par ex. Le Parrain" autocomplete="off">
+      <button class="btn" id="searchBtn" type="submit">Chercher</button>
+    </form>
+    <p class="status" id="searchStatus" hidden></p>
+    <div class="results" id="results"></div>
+  </section>
+
+  <section class="stack" aria-label="Ta liste">
+    <div class="listhead">
+      <h2>Ta liste</h2>
+      <div class="tabs" role="group" aria-label="Filtrer">
+        <button type="button" data-f="todo" aria-pressed="true">À voir</button>
+        <button type="button" data-f="seen" aria-pressed="false">Vus</button>
+        <button type="button" data-f="all" aria-pressed="false">Tous</button>
+      </div>
+    </div>
+    <p class="status" id="listStatus" hidden></p>
+    <div class="list" id="list"></div>
+  </section>
+
+  <footer class="hint">
+    Données et affiches fournies par <a href="https://www.themoviedb.org" target="_blank" rel="noopener">TMDB</a>.
+    Ce site utilise l'API TMDB mais n'est ni approuvé ni certifié par TMDB.
+  </footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
